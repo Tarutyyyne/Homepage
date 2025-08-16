@@ -5,9 +5,11 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 export const runtime = "nodejs";
 
+type MdxListItem = { slug: string; title?: string };
+
 function getTitle(slug: string): string {
   try {
-    const list = listMdx("blog") as any[];
+    const list = listMdx("blog") as MdxListItem[];
     const hit = list.find((x) => x.slug === slug);
     return hit?.title ?? slug;
   } catch {
