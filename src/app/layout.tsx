@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { SiteHeader } from "../components/site-header";
-import { SiteFooter } from "../components/site-footer";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
@@ -21,10 +17,7 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
-  title: {
-    default: siteName,
-    template: `%s | ${siteName}`,
-  },
+  title: { default: siteName, template: `%s | ${siteName}` },
   description: siteDescription,
   openGraph: {
     type: "website",
@@ -44,11 +37,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen`}
       >
@@ -56,7 +47,7 @@ export default function RootLayout({
         <a
           href="#content"
           className="sr-only focus:not-sr-only fixed top-3 left-3 bg-background border px-3 py-2 rounded-md
-                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
+                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           Skip to content
         </a>
