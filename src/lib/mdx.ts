@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import { z } from "zod";
 
 type MdxMeta = {
   slug: string;
@@ -9,31 +10,101 @@ type MdxMeta = {
   summary?: string;
   tags?: string[];
   thumbnail?: string;
+  draft?: boolean;
 };
 
-export function listMdx(dir: "portfolio" | "blog"): MdxMeta[] {
+const FrontmatterSchema = z.object({
+  title: z.string().min(1),
+  date: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/)
+    .optional(),
+  summary: z.string().optional(),
+  tags: z.preprocess(
+    (v) =>
+      typeof v === "string"
+        ? v
+            .split(",")
+            .map((s) => s.trim())
+            .filter(Boolean)
+        : v,
+    z.array(z.string()).default([])
+  ),
+  thumbnail: z.string().default(""),
+  draft: z.boolean().default(false),
+});
+
+export function listMdx(
+  dir: "portfolio" | "blog",
+  opts?: { includeDraft?: boolean }
+): MdxMeta[] {
   const root = path.join(process.cwd(), "src", "content", dir);
   if (!fs.existsSync(root)) return [];
-  return fs
+  const includeDraft = opts?.includeDraft ?? false;
+
+  const posts = fs
     .readdirSync(root)
     .filter((f) => f.endsWith(".mdx"))
-    .map((f) => {
+    .map((f): MdxMeta | null => {
       const slug = f.replace(/\.mdx$/, "");
       const raw = fs.readFileSync(path.join(root, f), "utf-8");
       const { data } = matter(raw);
-      return {
+
+      const parsed = FrontmatterSchema.safeParse(data);
+
+      const title = parsed.success ? parsed.data.title : data.title ?? slug;
+      const meta: MdxMeta = {
         slug,
-        title: data.title ?? slug,
-        date: data.date,
-        summary: data.summary,
-        tags: data.tags,
-        thumbnail: data.thumbnail,
-      } as MdxMeta;
+        title,
+        date: parsed.success ? parsed.data.date : data.date,
+        summary: parsed.success ? parsed.data.summary : data.summary,
+        tags: parsed.success ? parsed.data.tags : data.tags,
+        thumbnail: parsed.success ? parsed.data.thumbnail : data.thumbnail,
+        draft: parsed.success ? parsed.data.draft : data.draft ?? false,
+      };
+
+      if (!includeDraft && meta.draft) {
+        return null;
+      }
+      return meta;
     })
+    .filter((meta): meta is MdxMeta => meta !== null)
     .sort((a, b) => (b.date ?? "").localeCompare(a.date ?? ""));
+
+  return posts;
 }
 
 export function hasMdx(dir: "portfolio" | "blog", slug: string) {
   const p = path.join(process.cwd(), "src", "content", dir, `${slug}.mdx`);
   return fs.existsSync(p);
+}
+
+export function getMdxBySlug(
+  dir: "portfolio" | "blog",
+  slug: string,
+  opts?: { includeDraft?: boolean }
+): MdxMeta | null {
+  const file = path.join(process.cwd(), "src", "content", dir, `${slug}.mdx`);
+  if (!fs.existsSync(file)) return null;
+
+  const raw = fs.readFileSync(file, "utf-8");
+  const { data } = matter(raw);
+  const parsed = FrontmatterSchema.safeParse(data);
+
+  const title = parsed.success ? parsed.data.title : data.title ?? slug;
+
+  const meta: MdxMeta = {
+    slug,
+    title,
+    date: parsed.success ? parsed.data.date : data.date,
+    summary: parsed.success ? parsed.data.summary : data.summary,
+    tags: parsed.success ? parsed.data.tags : data.tags,
+    thumbnail: parsed.success ? parsed.data.thumbnail : data.thumbnail,
+    draft: parsed.success ? parsed.data.draft : data.draft ?? false,
+  };
+
+  const includeDraft = opts?.includeDraft ?? false;
+  if (!includeDraft && meta.draft) return null;
+
+  return meta;
 }
