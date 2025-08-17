@@ -28,6 +28,7 @@
     "@eslint/eslintrc": "^3",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/postcss": "^4",
+    "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -39,6 +40,7 @@
     "typescript": "^5"
   },
   "engines": {
-    "node": ">=18.17 <21"
-  }
+    "node": ">=20 <21"
+  },
+  "packageManager": "pnpm@10.14.0"
 }
