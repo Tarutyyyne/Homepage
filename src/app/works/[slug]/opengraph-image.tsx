@@ -9,7 +9,7 @@ type MdxListItem = { slug: string; title?: string };
 
 function getTitle(slug: string): string {
   try {
-    const list = listMdx("portfolio") as MdxListItem[];
+    const list = listMdx("works") as MdxListItem[];
     const hit = list.find((x) => x.slug === slug);
     return hit?.title ?? slug;
   } catch {
@@ -38,7 +38,7 @@ export default function OG({ params }: { params: { slug: string } }) {
           }}
         >
           <div style={{ fontSize: 28, color: "#10b981", fontWeight: 600 }}>
-            Portfolio
+            Works
           </div>
           <div
             style={{

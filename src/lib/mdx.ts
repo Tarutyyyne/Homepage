@@ -42,7 +42,7 @@ const FrontmatterSchema = z.object({
 });
 
 export function listMdx(
-  dir: "portfolio" | "blog",
+  dir: "works" | "blog",
   opts?: { includeDraft?: boolean }
 ): MdxMeta[] {
   const root = path.join(process.cwd(), "src", "content", dir);
@@ -95,13 +95,13 @@ export function listMdx(
   return posts;
 }
 
-export function hasMdx(dir: "portfolio" | "blog", slug: string) {
+export function hasMdx(dir: "works" | "blog", slug: string) {
   const p = path.join(process.cwd(), "src", "content", dir, `${slug}.mdx`);
   return fs.existsSync(p);
 }
 
 export function getMdxBySlug(
-  dir: "portfolio" | "blog",
+  dir: "works" | "blog",
   slug: string,
   opts?: { includeDraft?: boolean }
 ): MdxMeta | null {

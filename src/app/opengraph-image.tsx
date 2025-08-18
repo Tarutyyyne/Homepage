@@ -18,7 +18,7 @@ export default function OG() {
         }}
       >
         <div style={{ padding: 48, fontSize: 40, fontWeight: 700 }}>
-          Mon Portfolio
+          ぎゃらりぃ～ぬ
         </div>
         <div style={{ padding: "0 48px", fontSize: 28, color: "#334155" }}>
           学びと制作の記録 — Next.js + MDX

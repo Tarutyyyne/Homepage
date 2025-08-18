@@ -4,8 +4,8 @@ import { usePathname } from "next/navigation";
 
 const NAV = [
   { href: "/", label: "Home" },
-  { href: "/portfolio", label: "Portfolio" },
   { href: "/blog", label: "Blog" },
+  { href: "/works", label: "Works" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -24,7 +24,7 @@ export function SiteHeader() {
           href="/"
           className="font-semibold tracking-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-md px-2"
         >
-          Mon Portfolio
+          ぎゃらりぃ～ぬ
         </Link>
 
         <nav aria-label="Main" className="flex items-center gap-2">
