@@ -3,6 +3,13 @@ import path from "node:path";
 import matter from "gray-matter";
 import { z } from "zod";
 
+function normalizeThumbnail(v: unknown): string | undefined {
+  if (typeof v !== "string") return undefined;
+  const s = v.trim();
+  if (!s) return undefined;
+  return s.startsWith("/") || s.startsWith("http") ? s : `/${s}`;
+}
+
 type MdxMeta = {
   slug: string;
   title: string;
@@ -30,7 +37,7 @@ const FrontmatterSchema = z.object({
         : v,
     z.array(z.string()).default([])
   ),
-  thumbnail: z.string().default(""),
+  thumbnail: z.preprocess((v) => normalizeThumbnail(v), z.string().optional()),
   draft: z.boolean().default(false),
 });
 
@@ -56,10 +63,24 @@ export function listMdx(
       const meta: MdxMeta = {
         slug,
         title,
-        date: parsed.success ? parsed.data.date : data.date,
-        summary: parsed.success ? parsed.data.summary : data.summary,
-        tags: parsed.success ? parsed.data.tags : data.tags,
-        thumbnail: parsed.success ? parsed.data.thumbnail : data.thumbnail,
+        date: parsed.success
+          ? parsed.data.date
+          : typeof data.date === "string"
+          ? data.date
+          : undefined,
+        summary: parsed.success
+          ? parsed.data.summary
+          : typeof data.summary === "string"
+          ? data.summary
+          : undefined,
+        tags: parsed.success
+          ? parsed.data.tags
+          : Array.isArray(data.tags)
+          ? data.tags.filter((t) => typeof t === "string")
+          : [],
+        thumbnail: parsed.success
+          ? parsed.data.thumbnail
+          : normalizeThumbnail(data.thumbnail),
         draft: parsed.success ? parsed.data.draft : data.draft ?? false,
       };
 
@@ -96,10 +117,24 @@ export function getMdxBySlug(
   const meta: MdxMeta = {
     slug,
     title,
-    date: parsed.success ? parsed.data.date : data.date,
-    summary: parsed.success ? parsed.data.summary : data.summary,
-    tags: parsed.success ? parsed.data.tags : data.tags,
-    thumbnail: parsed.success ? parsed.data.thumbnail : data.thumbnail,
+    date: parsed.success
+      ? parsed.data.date
+      : typeof data.date === "string"
+      ? data.date
+      : undefined,
+    summary: parsed.success
+      ? parsed.data.summary
+      : typeof data.summary === "string"
+      ? data.summary
+      : undefined,
+    tags: parsed.success
+      ? parsed.data.tags
+      : Array.isArray(data.tags)
+      ? data.tags.filter((t) => typeof t === "string")
+      : [],
+    thumbnail: parsed.success
+      ? parsed.data.thumbnail
+      : normalizeThumbnail(data.thumbnail),
     draft: parsed.success ? parsed.data.draft : data.draft ?? false,
   };
 
