@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-type PortfolioItem = {
+type WorksItem = {
   slug: string;
   title: string;
   date?: string;
@@ -19,17 +19,17 @@ type PortfolioItem = {
   thumbnail?: string;
 };
 
-export default function PortfolioPage() {
-  const items = listMdx("portfolio") as PortfolioItem[];
+export default function WorksPage() {
+  const items = listMdx("works") as WorksItem[];
 
   return (
     // レイアウト側に <main id="content"> がある前提で <section> を使用
     <section className="space-y-6">
-      <h1 className="text-3xl font-bold tracking-tight">Portfolio</h1>
+      <h1 className="text-3xl font-bold tracking-tight">Works</h1>
 
       {items.length === 0 ? (
         <p className="text-muted-foreground">
-          まだ作品がありません。<code>/src/content/portfolio</code> に{" "}
+          まだ作品がありません。<code>/src/content/works</code> に{" "}
           <code>.mdx</code> を追加してください。
         </p>
       ) : (
@@ -79,7 +79,7 @@ export default function PortfolioPage() {
 
               <CardFooter className="justify-end">
                 <Button asChild>
-                  <Link href={`/portfolio/${x.slug}`}>View</Link>
+                  <Link href={`/works/${x.slug}`}>View</Link>
                 </Button>
               </CardFooter>
             </Card>
