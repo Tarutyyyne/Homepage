@@ -23,7 +23,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteName = "ぎゃらりぃ～ぬ -gallerYYYne"; // サイト名
+const siteName = "ぎゃらりぃ～ぬ gallerYYYne"; // サイト名
 const siteDescription =
   "情報系大学生たるてぃ～ぬの学習と制作の歩みを記録するブログサイト";
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"; // ベースURLをNEXT_PUBLIC_SITE_URLという名前の環境変数から取得し、開発環境ではローカルホスト3000番を使用
