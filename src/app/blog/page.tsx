@@ -1,3 +1,12 @@
+/**
+   2  * @file page.tsx
+   3  * @description
+     URL /blog を担当するブログのインデックスページ
+     src/content/blogディレクトリ内の記事を読み込み、タイムスタンプの新しい順に一覧表示します。
+   4  * @author Tarutyyyne
+   5  * @created 2025-08-18
+   6  */
+
 import Link from "next/link";
 import Image from "next/image";
 import { listMdx } from "@/lib/mdx";
@@ -27,6 +36,7 @@ export default function BlogPage() {
     <section className="space-y-6">
       <h1 className="text-3xl font-bold tracking-tight">Blog</h1>
 
+      {/* {記事の件数 === 0 ? <p>案内</p> : <div>記事の一覧</div>} */}
       {items.length === 0 ? (
         <p className="text-muted-foreground">
           まだ記事がありません。<code>/src/content/blog</code> に{" "}
@@ -80,7 +90,7 @@ export default function BlogPage() {
 
               <CardFooter className="justify-end">
                 <Button asChild>
-                  <Link href={`/blog/${x.slug}`}>View</Link>
+                  <Link href={`/blog/${x.slug}`}>詳細をみる</Link>
                 </Button>
               </CardFooter>
             </Card>
