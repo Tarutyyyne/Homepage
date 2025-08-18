@@ -1,24 +1,38 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+/**
+ * @file layout.tsx
+ * @description サイトの全てのページに共通するテンプレートを定義。
+ * HTMLの<html>,<body>タグ、全体に適用されるCSS、
+ * 共通のヘッダーやフッターなどをここで定義。
+ * @author Tarutyyyne
+ * @created 2025-08-18
+ */
+
+import type { Metadata } from "next"; // Next.jsのメタデータ型をインポート
+import { Geist, Geist_Mono } from "next/font/google"; // Google FontsからGeistフォントをインポート
+import "./globals.css"; // グローバルCSSをインポート
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+// geistSansとgeistMonoはカスタムフォント
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"], // ラテン文字だけこのフォントを適用させる
+});
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
-const siteName = "Mon Portfolio";
+const siteName = "gallerYYYne"; // サイト名
 const siteDescription =
-  "学びと制作の記録。Next.js + MDX のポートフォリオ兼ブログ。";
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  "情報系大学生たるてぃ～ぬの学習と制作の歩みを記録するブログサイト";
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"; // ベースURLをNEXT_PUBLIC_SITE_URLという名前の環境変数から取得し、開発環境ではローカルホスト3000番を使用
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: { default: siteName, template: `%s | ${siteName}` },
-  description: siteDescription,
+  description: siteDescription, // 検索結果のスニペットに該当
+  // 以下はSNSシェア対策
   openGraph: {
     type: "website",
     siteName,
