@@ -1,3 +1,12 @@
+/**
+   2  * @file page.tsx
+   3  * @description
+     URL /works を担当するブログのインデックスページ
+     src/content/worksディレクトリ内の記事を読み込み、タイムスタンプの新しい順に一覧表示します。
+   4  * @author Tarutyyyne
+   5  * @created 2025-08-19
+   6  */
+
 import Link from "next/link";
 import Image from "next/image";
 import { listMdx } from "@/lib/mdx";
@@ -79,7 +88,7 @@ export default function WorksPage() {
 
               <CardFooter className="justify-end">
                 <Button asChild>
-                  <Link href={`/works/${x.slug}`}>View</Link>
+                  <Link href={`/works/${x.slug}`}>詳細を見る</Link>
                 </Button>
               </CardFooter>
             </Card>
