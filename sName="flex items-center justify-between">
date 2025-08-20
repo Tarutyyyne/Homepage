@@ -1,0 +1,69 @@
+[1mdiff --git a/src/app/page.tsx b/src/app/page.tsx[m
+[1mindex 275cee9..54f42f4 100644[m
+[1m--- a/src/app/page.tsx[m
+[1m+++ b/src/app/page.tsx[m
+[36m@@ -1,29 +1,46 @@[m
+ import Link from "next/link";[m
+ import { listMdx } from "@/lib/mdx";[m
+[32m+[m[32mimport Hero from "@/components/hero";[m
+ [m
+ export default function WorksPage() {[m
+   const items = listMdx("works");[m
+   return ([m
+     <main className="mx-auto max-w-3xl p-6 space-y-6">[m
+[31m-      <h1 className="text-3xl font-bold">Works</h1>[m
+[32m+[m[32m      <Hero />[m
+ [m
+[31m-      {items.length === 0 ? ([m
+[31m-        <p className="text-gray-600">[m
+[31m-          まだ作品がありません。/src/content/works に .mdx を追加してください。[m
+[31m-        </p>[m
+[31m-      ) : ([m
+[31m-        <ul className="space-y-4">[m
+[31m-          {items.map((x) => ([m
+[31m-            <li key={x.slug} className="border rounded-lg p-4">[m
+[31m-              <h2 className="text-xl font-semibold">[m
+[31m-                <Link href={`/works/${x.slug}`}>{x.title}</Link>[m
+[31m-              </h2>[m
+[31m-              {x.date && <p className="text-sm text-gray-500">{x.date}</p>}[m
+[31m-              {x.summary && <p className="mt-2 text-gray-700">{x.summary}</p>}[m
+[31m-            </li>[m
+[31m-          ))}[m
+[31m-        </ul>[m
+[31m-      )}[m
+[32m+[m[32m      <section aria-labelledby="home-works">[m
+[32m+[m[32m        <div className="flex items-center justify-between">[m
+[32m+[m[32m          <h2 id="home-works" className="text-3xl font-bold">[m
+[32m+[m[32m            最新のWorks[m
+[32m+[m[32m          </h2>[m
+[32m+[m
+[32m+[m[32m          <Link[m
+[32m+[m[32m            href="/works"[m
+[32m+[m[32m            className="text-sm text-gray-600 dark:text-gray-300 hover:underline"[m
+[32m+[m[32m          >[m
+[32m+[m[32m            すべて見る →[m
+[32m+[m[32m          </Link>[m
+[32m+[m[32m        </div>[m
+[32m+[m
+[32m+[m[32m        {items.length === 0 ? ([m
+[32m+[m[32m          <p className="text-gray-600">[m
+[32m+[m[32m            まだ作品がありません。/src/content/works に .mdx[m
+[32m+[m[32m            を追加してください。[m
+[32m+[m[32m          </p>[m
+[32m+[m[32m        ) : ([m
+[32m+[m[32m          <ul className="space-y-4">[m
+[32m+[m[32m            {items.map((x) => ([m
+[32m+[m[32m              <li key={x.slug} className="border rounded-lg p-4">[m
+[32m+[m[32m                <h2 className="text-xl font-semibold">[m
+[32m+[m[32m                  <Link href={`/works/${x.slug}`}>{x.title}</Link>[m
+[32m+[m[32m                </h2>[m
+[32m+[m[32m                {x.date && <p className="text-sm text-gray-500">{x.date}</p>}[m
+[32m+[m[32m                {x.summary && <p className="mt-2 text-gray-700">{x.summary}</p>}[m
+[32m+[m[32m              </li>[m
+[32m+[m[32m            ))}[m
+[32m+[m[32m          </ul>[m
+[32m+[m[32m        )}[m
+[32m+[m[32m      </section>[m
+     </main>[m
+   );[m
+ }[m
