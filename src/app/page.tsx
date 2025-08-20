@@ -13,7 +13,6 @@ export default function WorksPage() {
           <h2 id="home-works" className="text-3xl font-bold">
             最新のWorks
           </h2>
-
           <Link
             href="/works"
             className="text-sm text-gray-600 dark:text-gray-300 hover:underline"
@@ -40,6 +39,23 @@ export default function WorksPage() {
             ))}
           </ul>
         )}
+
+        {/* #TODO aboutを作成する */}
+        {/* <Link
+            href="/about"
+            aria-label="About（自己紹介）へ移動"
+            className="text-sm text-gray-600 dark:text-gray-300 hover:underline"
+          >
+            About
+          </Link> */}
+
+        <Link
+          href="/blog"
+          aria-label="ブログの最新記事へ移動"
+          className="text-sm text-gray-600 dark:text-gray-300 hover:underline"
+        >
+          最新記事
+        </Link>
       </section>
     </main>
   );
