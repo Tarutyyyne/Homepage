@@ -10,7 +10,7 @@ export default function AboutPage() {
   return (
     <main className="mx-auto max-w-3xl p-6 space-y-8">
       <header>
-        <h1 className="text-3xl font-bold">自己紹介</h1>
+        <h1 className="text-3xl font-bold">自己紹介：たるてぃ～ぬ</h1>
         <p className="mt-2 text-gray-700 dark:text-gray-300">
           情報系の学部に通う大学一年生、フロントエンドエンジニアを目指す見習いです！
         </p>
