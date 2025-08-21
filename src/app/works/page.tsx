@@ -34,7 +34,7 @@ export default function WorksPage() {
   return (
     // レイアウト側に <main id="content"> がある前提で <section> を使用
     <section className="space-y-6">
-      <h1 className="text-3xl font-bold tracking-tight">Works</h1>
+      <h2 className="text-3xl font-bold tracking-tight">Works</h2>
 
       {items.length === 0 ? (
         <p className="text-muted-foreground">
