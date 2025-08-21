@@ -1,7 +1,7 @@
 export function SiteFooter() {
   return (
     <footer className="border-t mt-16">
-      <div className="container max-w-5xl mx-auto px-4 py-8 text-sm text-muted-foreground">
+      <div className="container max-w-5xl mx-auto px-4 py-8 text-sm text-muted-foreground text-center">
         © {new Date().getFullYear()} ぎゃらりぃ～ぬ. All rights reserved.
       </div>
     </footer>
