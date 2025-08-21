@@ -39,7 +39,6 @@ export default function WorksPage() {
             ))}
           </ul>
         )}
-
         <Link
           href="/about"
           aria-label="About（自己紹介）へ移動"
@@ -47,14 +46,6 @@ export default function WorksPage() {
         >
           About
         </Link>
-
-        {/* <Link
-          href="/blog"
-          aria-label="ブログの最新記事へ移動"
-          className="text-sm text-gray-600 dark:text-gray-300 hover:underline"
-        >
-          最新記事
-        </Link> */}
       </section>
     </main>
   );
